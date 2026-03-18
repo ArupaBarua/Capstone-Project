@@ -16,7 +16,7 @@ class FlaskAppTests(unittest.TestCase):
         response = self.client.post('/predict', data=dict(text="The movie was great!!!"))
         self.assertEqual(response.status_code, 200)
         self.assertTrue(
-            b'Postive' in response.data or b'Negative'in response.data in response.data,
+            b'Postive' in response.data or b'Negative'in response.data,
             "Response should contain either 'Positive' or 'Negative'"
         )
 
