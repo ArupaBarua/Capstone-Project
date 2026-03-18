@@ -39,7 +39,7 @@ class TestModelLoading(unittest.TestCase):
         return latest_version[0].version if latest_version else None
     
     def test_model_loaded_properly(self):
-        self.assertIsNone(self.new_model)
+        self.assertIsNotNone(self.new_model)
 
     def test_model_signature(self):
         # Create a dummy input for the model based on expected input shape
