@@ -13,12 +13,12 @@ class FlaskAppTests(unittest.TestCase):
         self.assertIn(b'<title>Sentiment Analysis</title>', response.data)
 
     def test_predict_page(self):
-        response = self.client.post('/predict', data=dict(text="The movie was great!!!"))
+        response = self.client.post('/predict', data=dict(text="I love this movie!"))
         self.assertEqual(response.status_code, 200)
         self.assertTrue(
-            b'Postive' in response.data or b'Negative'in response.data,
+            b'Positive' in response.data or b'Negative' in response.data,
             "Response should contain either 'Positive' or 'Negative'"
         )
 
-    if __name__ == "__main__":
-        unittest.main()
+if __name__ == '__main__':
+    unittest.main()
