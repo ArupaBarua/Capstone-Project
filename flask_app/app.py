@@ -15,6 +15,38 @@ import dagshub
 import warnings
 warnings.filterwarnings("ignore")
 
+# mlflow.set_tracking_uri('https://dagshub.com/ArupaBarua/Capstone-Project.mlflow')
+# dagshub.init(repo_owner='ArupaBarua', repo_name='Capstone-Project', mlflow=True)
+
+# Set up DagsHub credentials for MLflow tracking
+dagshub_token = os.getenv("CAPSTONE_TEST")
+if not dagshub_token:
+    raise EnvironmentError("CAPSTONE_TEST environment variable is not set")
+
+os.environ["MLFLOW_TRACKING_USERNAME"] = dagshub_token
+os.environ["MLFLOW_TRACKING_PASSWORD"] = dagshub_token
+
+dagshub_url = "https://dagshub.com"
+repo_owner = "ArupaBarua"
+repo_name = "Capstone-Project"
+
+#Set up MLflow tracking URI
+mlflow.set_tracking_uri(f'{dagshub_url}/{repo_owner}/{repo_name}.mlflow')
+
+app =  Flask(__name__)
+
+registry = CollectorRegistry()
+
+REQUEST_COUNT = Counter(
+    "app_request_count", "Total number of requests to the app", ["method", "endpoint"], registry=registry
+)
+REQUEST_LATENCY = Histogram(
+    "app_request_latency_seconds", "Latency of requests in seconds", ["endpoint"], registry=registry
+)
+PREDICTION_COUNT = Counter(
+    "model_prediction_count", "Count of prediction for each class", ["prediction"], registry=registry
+)
+
 def lemmatization(text):
     """Lemmatize the text."""
     lemmatizer = WordNetLemmatizer()
@@ -61,44 +93,10 @@ def normalize_text(text):
 
     return text
 
-# Below code block is for local use
-mlflow.set_tracking_uri('https://dagshub.com/ArupaBarua/Capstone-Project.mlflow')
-dagshub.init(repo_owner='ArupaBarua', repo_name='Capstone-Project', mlflow=True)
-
-
-# Below code block is for production use
-# Set up DagsHub credentials for MLflow tracking
-# dagshub_token = os.getenv("CAPSTONE_TEST")
-# if not dagshub_token:
-#     raise EnvironmentError("CAPSTONE_TEST environment variable is not set")
-
-# os.environ["MLFLOW_TRACKING_USERNAME"] = dagshub_token
-# os.environ["MLFLOW_TRACKING_PASSWORD"] = dagshub_token
-
-# dagshub_url = "https://dagshub.com"
-# repo_owner = "vikashdas770"
-# repo_name = "YT-Capstone-Project"
-# # Set up MLflow tracking URI
-# mlflow.set_tracking_uri(f'{dagshub_url}/{repo_owner}/{repo_name}.mlflow')
-
-app =  Flask(__name__)
-
-registry = CollectorRegistry()
-
-REQUEST_COUNT = Counter(
-    "app_request_count", "Total number of requests to the app", ["method", "endpoint"], registry=registry
-)
-REQUEST_LATENCY = Histogram(
-    "app_request_latency_seconds", "Latency of requests in seconds", ["endpoint"], registry=registry
-)
-PREDICTION_COUNT = Counter(
-    "model_prediction_count", "Count of prediction for each class", ["prediction"], registry=registry
-)
-
 model_name = "my_model"
 def get_latest_model_version(model_name):
     client = mlflow.MlflowClient()
-    latest_version = client.get_latest_versions(model_name, stages=["Staging"])
+    latest_version = client.get_latest_versions(model_name, stages=["Production"])
     if not latest_version:
         latest_version = client.get_latest_versions(model_name, stages=["None"])
     return latest_version[0].version if latest_version else None
