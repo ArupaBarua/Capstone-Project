@@ -9,6 +9,10 @@ import logging
 from src.logger import logging
 from src.connections import s3_connection
 
+bucket_name = "arupa-capstone-project"
+aws_access_key = os.getenv("AWS_ACCESS_KEY_ID")
+aws_secret_access_key = os.getenv("AWS_SECRET_ACCESS_KEY")
+
 def load_params(params_path: str) -> dict:
     try:
         with open(params_path, 'r') as file:
@@ -72,9 +76,9 @@ def main():
         test_size = params['data_ingestion']['test_size']
         #test_size = 0.25
 
-        df = load_data(data_url='https://raw.githubusercontent.com/vikashishere/Datasets/refs/heads/main/data.csv')
-        #s3 = s3_connection.S3_Operations("bucket-name", "aws-access-key", "aws-secret-key")
-        #df = s3.fetch_file_from_s3("IMDB.csv")
+        #df = load_data(data_url='https://raw.githubusercontent.com/vikashishere/Datasets/refs/heads/main/data.csv')
+        s3 = s3_connection.S3_Operations(bucket_name, aws_access_key, aws_secret_access_key)
+        df = s3.fetch_file_from_s3("IMDB.csv")
 
         final_df = preprocess_data(df)
         train_data, test_data = train_test_split(final_df, test_size=test_size, random_state=42)
