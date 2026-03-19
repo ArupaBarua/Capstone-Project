@@ -74,7 +74,7 @@ def main():
 
         df = load_data(data_url='https://raw.githubusercontent.com/vikashishere/Datasets/refs/heads/main/data.csv')
         #s3 = s3_connection.S3_Operations("bucket-name", "aws-access-key", "aws-secret-key")
-        #df = s3.fetch_file_from_s3("data.csv")
+        #df = s3.fetch_file_from_s3("IMDB.csv")
 
         final_df = preprocess_data(df)
         train_data, test_data = train_test_split(final_df, test_size=test_size, random_state=42)
