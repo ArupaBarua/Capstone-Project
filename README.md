@@ -273,6 +273,18 @@ kubectl create secret generic capstone-secret --from-literal=CAPSTONE_TEST=$CAPS
 envsubst < deployment.yaml | kubectl apply -f -
 ```
 
+## 📸 Live Deployment Evidence
+
+This project was deployed and served live on **AWS EKS** via the CI/CD pipeline.
+
+![EKS Cluster - flask-app-cluster](./references/eks-cluster.png)
+*`flask-app-cluster` on Amazon EKS, Kubernetes v1.34, actively serving the Flask app behind a LoadBalancer.*
+
+✅ [View successful deployment run](https://github.com/ArupaBarua/Capstone-Project/actions/runs/23356039152) — CI Pipeline #13, ECR push + EKS rollout, Mar 21 2026
+
+The cluster and ECR repo were decommissioned after evaluation to avoid ongoing AWS costs.
+
+
 ## 📊 Monitoring
 
 The Flask app exposes a `/metrics` endpoint instrumented with `prometheus_client`, tracking:
@@ -293,5 +305,3 @@ This project is licensed under the [MIT License](LICENSE).
 ## 👤 Author
 
 **Arupa Barua**
-
-[![CI Pipeline](https://github.com/ArupaBarua/Capstone-Project/actions/workflows/ci.yaml/badge.svg)](https://github.com/ArupaBarua/Capstone-Project/actions/workflows/ci.yaml)
