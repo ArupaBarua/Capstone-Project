@@ -280,7 +280,7 @@ This project was deployed and served live on **AWS EKS** via the CI/CD pipeline.
 ![EKS Cluster - flask-app-cluster](./references/eks-cluster.png)
 *`flask-app-cluster` on Amazon EKS, Kubernetes v1.34, actively serving the Flask app behind a LoadBalancer.*
 
-✅ [View successful deployment run](https://github.com/ArupaBarua/Capstone-Project/actions/runs/23356039152) — CI Pipeline #13, ECR push + EKS rollout, Mar 21 2026
+✅ [View successful deployment run](https://github.com/ArupaBarua/Capstone-Project/actions/runs/23356039152) — CI Pipeline #13, ECR push + EKS rollout
 
 The cluster and ECR repo were decommissioned after evaluation to avoid ongoing AWS costs.
 
