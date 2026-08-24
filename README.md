@@ -293,3 +293,5 @@ This project is licensed under the [MIT License](LICENSE).
 ## 👤 Author
 
 **Arupa Barua**
+
+![CI Pipeline](https://github.com/ArupaBarua/Capstone-Project/actions/workflows/ci.yaml/badge.svg)
