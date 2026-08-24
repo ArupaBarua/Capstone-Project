@@ -294,4 +294,4 @@ This project is licensed under the [MIT License](LICENSE).
 
 **Arupa Barua**
 
-![CI Pipeline](https://github.com/ArupaBarua/Capstone-Project/actions/workflows/ci.yaml/badge.svg)
+[![CI Pipeline](https://github.com/ArupaBarua/Capstone-Project/actions/workflows/ci.yaml/badge.svg)](https://github.com/ArupaBarua/Capstone-Project/actions/workflows/ci.yaml)
